@@ -1,0 +1,62 @@
+.editor-container {
+  width: 90vw;
+  height: 90vh;
+
+  background-color: whitesmoke;
+  border-radius: 10px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
+.editor-close-btn {
+  margin: 0.5rem;
+  position: absolute;
+  right: 0;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.editor-image-container {
+  width: 70%;
+  height: 60%;
+  border: 1px solid black;
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5%;
+}
+
+textarea {
+  resize: none;
+  width: 70%;
+  height: 20%;
+  background-color: none;
+  border: 1px solid black;
+}
+
+.editor-image-upload {
+  display: none;
+}
+
+.editor-image-upload-btn {
+  background-color: black;
+  color: white;
+  height: 1.5rem;
+  padding: 0.2rem;
+}
