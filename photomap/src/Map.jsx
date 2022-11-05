@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Editor from './Editor';
 import { doc, updateDoc } from 'firebase/firestore';
 import Popup from './Popup';
+import { useEffect } from 'react';
 
 function MyMap({
   markers,
@@ -22,9 +23,14 @@ function MyMap({
   const [anchor, setAnchor] = useState([]);
   const [clickedMarkerId, setClickedMarkerId] = useState();
   const [clickedMarker, setClickedMarker] = useState();
+  const [isCommentSubmited, setIsCommentSubmited] = useState(undefined);
   const handleE = (e) => {
     if (!isLogged) {
       alert('Please Log in');
+      return;
+    }
+    if (isMarkerClicked) {
+      setIsMarkerClicked(false);
       return;
     }
     const [lat, lng] = e.latLng;
@@ -45,7 +51,7 @@ function MyMap({
     setClickedMarker(doc(db, 'marker', `${e.payload}`));
   };
 
-  console.log(anchor);
+  console.log(isCommentSubmited);
 
   return (
     <div className='map-container'>
@@ -75,7 +81,7 @@ function MyMap({
           setIsEditorOpen={setIsEditorOpen}
           storage={storage}
           curDoc={curDoc}
-          isLogged={isLogged}
+          setMarkers={setMarkers}
         />
       )}
     </div>

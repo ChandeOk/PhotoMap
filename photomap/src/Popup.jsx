@@ -22,7 +22,7 @@ function Popup({ id, markerInfo, setIsMarkerClicked }) {
       <div className='popup-image-container'>
         <img src={data.imgUrl} alt='Comment image' className='popup-image' />
       </div>
-      <p className='popup-text'>${data.textValue}</p>
+      <p className='popup-text'>{data.textValue}</p>
       <button className='popup-close-btn' onClick={closePopup}>
         X
       </button>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import { updateDoc } from 'firebase/firestore';
+import { updateDoc, deleteDoc } from 'firebase/firestore';
 import './Editor.css';
 import { useEffect } from 'react';
-function Editor({ setIsEditorOpen, storage, curDoc }) {
+function Editor({ setIsEditorOpen, storage, curDoc, setMarkers }) {
   const [imgUrl, setImgUrl] = useState('');
   const [textValue, setTextValue] = useState('Your comment here..');
   const handleChange = (e) => {
@@ -28,25 +28,23 @@ function Editor({ setIsEditorOpen, storage, curDoc }) {
   const updateMarker = async (imgUrl) => {
     await updateDoc(curDoc, { imgUrl, textValue });
   };
-  // useEffect(() => {
-  //   console.log(curDoc);
-  //   updateMarker(imgUrl);
-  // }),
-  //   [imgUrl];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('!!!!!!!!!!!!SUBMIT!!!!!!!!!');
     updateMarker(imgUrl);
+    setIsEditorOpen(false);
   };
 
+  const handleCloseBtn = async () => {
+    setIsEditorOpen(false);
+    setMarkers((prev) => prev.slice(0, -1));
+    await deleteDoc(curDoc);
+  };
   // console.log(curDoc);
   return (
     <div className='editor-container'>
-      <button
-        className='editor-close-btn'
-        onClick={() => setIsEditorOpen(false)}
-      >
+      <button className='editor-close-btn' onClick={handleCloseBtn}>
         X
       </button>
       <form action='submit' onSubmit={handleSubmit}>
