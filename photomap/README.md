@@ -1,3 +1,6 @@
+Create/Delete/Edit only available after Log in
+<br />
+<br />
 #Create marker: Click on map
 <br />
 #Edit/Delete marker: Click on marker
