@@ -1,11 +1,12 @@
 import React from 'react';
 import './Map.css';
 import { nanoid } from 'nanoid';
-import { Map, Marker, Overlay } from 'pigeon-maps';
+import { Map, Marker, Overlay, ZoomControl } from 'pigeon-maps';
 import { useState } from 'react';
 import Editor from './Editor';
 import { doc, deleteDoc } from 'firebase/firestore';
 import Popup from './Popup';
+import { useEffect } from 'react';
 
 function MyMap({
   markers,
@@ -23,6 +24,16 @@ function MyMap({
   const [curDoc, setCurDoc] = useState();
   const [anchor, setAnchor] = useState([]);
   const [clickedMarker, setClickedMarker] = useState();
+  const [geo, setGeo] = useState(undefined);
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((pos) =>
+        setGeo([pos.coords.latitude, pos.coords.longitude])
+      );
+    }
+  }, []);
+
   const handleE = (e) => {
     if (isMarkerClicked) {
       setIsMarkerClicked(false);
@@ -62,7 +73,13 @@ function MyMap({
 
   return (
     <div className='map-container'>
-      <Map defaultCenter={[50.879, 4.6997]} defaultZoom={11} onClick={handleE}>
+      <Map
+        defaultCenter={[50.879, 4.6997]}
+        center={geo}
+        defaultZoom={11}
+        onClick={handleE}
+      >
+        <ZoomControl />
         {markers.map((marker) => (
           <Marker
             width={50}
