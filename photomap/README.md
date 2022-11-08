@@ -1,3 +1,5 @@
-Create marker: Click on map
-Edit/Delete marker: Click on marker
-Comments: Click on marker => Click on Message Icon
+#Create marker: Click on map
+<br />
+#Edit/Delete marker: Click on marker
+<br />
+#Comments: Click on marker => Click on Message Icon
