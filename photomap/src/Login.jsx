@@ -49,7 +49,7 @@ function Login({ signInWithGoogle, auth, logout, db, isLogged, setUserName }) {
       </div>
       <a
         className='login-help'
-        href='https://github.com/'
+        href='https://github.com/ChandeOk/PhotoMap/blob/main/photomap/README.md'
         target='_blank'
         rel='noopener noreferrer'
       >
