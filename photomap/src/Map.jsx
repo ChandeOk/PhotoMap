@@ -65,6 +65,8 @@ function MyMap({
   };
 
   const deleteMarker = async () => {
+    const ok = prompt('Type yes for delete');
+    if (ok.toLowerCase() !== 'yes') return;
     setIsMarkerClicked(false);
     setMarkers((prev) =>
       prev.filter((marker) => marker.id !== clickedMarker.id)
