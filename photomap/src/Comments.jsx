@@ -24,12 +24,8 @@ function Comments({ curMarkerDoc, db, userId, isLogged, userName }) {
   return (
     <div className='comments-container'>
       <div className='comments'>
-        {commentsData.map((comment) => (
-          <Comment
-            userId={comment.userId}
-            value={comment.value}
-            userName={userName}
-          />
+        {commentsData.map((comment, i) => (
+          <Comment value={comment.value} key={i} userName={userName} />
         ))}
       </div>
       {isLogged && (
@@ -39,6 +35,7 @@ function Comments({ curMarkerDoc, db, userId, isLogged, userName }) {
           db={db}
           setIsCommentSubmited={setIsCommentSubmited}
           userId={userId}
+          isCommentSubmited={isCommentSubmited}
         />
       )}
     </div>

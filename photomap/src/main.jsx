@@ -87,12 +87,6 @@ const addMarker = async (lat, lng, id, uid) => {
 
 const readDB = async () => {
   const querySnapshot = await getDocs(collection(db, 'marker'));
-  // console.log(querySnapshot.forEach((doc) => console.log(doc.data())));
-  // console.log(querySnapshot.docs);
-  console.log(querySnapshot.docs.map((doc) => doc.data()));
-  // querySnapshot.forEach((doc) => {
-  //   console.log(`${doc.id} => ${doc.data()}`);
-  // });
   return querySnapshot.docs.map((map) => map.data());
 };
 

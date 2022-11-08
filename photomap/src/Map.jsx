@@ -4,9 +4,8 @@ import { nanoid } from 'nanoid';
 import { Map, Marker, Overlay } from 'pigeon-maps';
 import { useState } from 'react';
 import Editor from './Editor';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 import Popup from './Popup';
-import { useEffect } from 'react';
 
 function MyMap({
   markers,
@@ -23,7 +22,6 @@ function MyMap({
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [curDoc, setCurDoc] = useState();
   const [anchor, setAnchor] = useState([]);
-  const [clickedMarkerId, setClickedMarkerId] = useState();
   const [clickedMarker, setClickedMarker] = useState();
   const handleE = (e) => {
     if (isMarkerClicked) {
@@ -37,8 +35,6 @@ function MyMap({
     }
     const [lat, lng] = e.latLng;
     const id = nanoid();
-    console.log(lat, lng, id);
-    console.log(userId);
     setMarkers((prev) => [...prev, { lat, lng, id, userId, comments: [] }]);
     addMarker(lat, lng, id, userId);
     setIsEditorOpen(true);
@@ -50,16 +46,13 @@ function MyMap({
       setIsMarkerClicked(false);
       return;
     }
-    console.log(e);
     setAnchor(e.anchor);
     setIsMarkerClicked(true);
-    setClickedMarkerId(e.payload);
     setCurMarkerDoc(doc(db, 'marker', `${e.payload}`));
     setClickedMarker(doc(db, 'marker', `${e.payload}`));
   };
 
   const deleteMarker = async () => {
-    console.log(markers);
     setIsMarkerClicked(false);
     setMarkers((prev) =>
       prev.filter((marker) => marker.id !== clickedMarker.id)
@@ -70,7 +63,6 @@ function MyMap({
   return (
     <div className='map-container'>
       <Map defaultCenter={[50.879, 4.6997]} defaultZoom={11} onClick={handleE}>
-        {/* <Marker width={50} anchor={[50.879, 4.6997]} /> */}
         {markers.map((marker) => (
           <Marker
             width={50}
@@ -83,17 +75,13 @@ function MyMap({
         {isMarkerClicked && (
           <Overlay anchor={anchor} offset={[200, 200]}>
             <Popup
-              id={clickedMarkerId}
               markerInfo={clickedMarker}
               setIsMarkerClicked={setIsMarkerClicked}
-              isEditorOpen={isEditorOpen}
               setIsEditorOpen={setIsEditorOpen}
               userId={userId}
               isLogged={isLogged}
-              curDoc={curDoc}
               setCurDoc={setCurDoc}
               db={db}
-              clickedMarker={clickedMarker}
               deleteMarker={deleteMarker}
               setIsCommentsOpen={setIsCommentsOpen}
             />
@@ -108,6 +96,7 @@ function MyMap({
           setMarkers={setMarkers}
           setIsMarkerClicked={setIsMarkerClicked}
           isMarkerClicked={isMarkerClicked}
+          setIsCommentsOpen={setIsCommentsOpen}
         />
       )}
     </div>

@@ -1,14 +1,11 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { isRouteErrorResponse } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth';
 import Comments from './Comments';
-import Editor from './Editor';
 import Login from './Login';
 import MyMap from './Map';
-import Popup from './Popup';
 
 function App(props) {
   const [markers, setMarkers] = useState([]);
@@ -17,7 +14,6 @@ function App(props) {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [curMarkerDoc, setCurMarkerDoc] = useState();
   const [userName, setUserName] = useState();
-  console.log(userName);
   const loadMarkersFromDB = async () => {
     const result = await props.readDB();
     setMarkers(result);
@@ -32,10 +28,8 @@ function App(props) {
       if (user) {
         setUserId(user.uid);
         setIsLogged(true);
-        console.log('Logged');
       } else {
         setIsLogged(false);
-        console.log('no user');
       }
     });
   }, []);

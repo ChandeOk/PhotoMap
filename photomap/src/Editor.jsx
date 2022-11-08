@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
-import {
-  ref,
-  getDownloadURL,
-  uploadBytes,
-  uploadBytesResumable,
-} from 'firebase/storage';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { updateDoc, deleteDoc } from 'firebase/firestore';
 import './Editor.css';
-import { useEffect } from 'react';
 import { CiCircleCheck } from 'react-icons/ci';
 function Editor({
   setIsEditorOpen,
@@ -16,6 +10,7 @@ function Editor({
   setMarkers,
   setIsMarkerClicked,
   isMarkerClicked,
+  setIsCommentsOpen,
 }) {
   const [progress, setProgress] = useState(0);
   const [imgUrl, setImgUrl] = useState('');
@@ -23,16 +18,9 @@ function Editor({
   const handleChange = (e) => {
     const file = e.target?.files[0];
     if (!file) return;
-    // console.log(typeof file);
 
     const storageRef = ref(storage, `files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
-    // uploadTask.then(async (snapshot) => {
-    //   const url = await getDownloadURL(snapshot.ref);
-    //   setImgUrl(url);
-    //   // setStorageUri(snapshot.metadata.fullPath);
-    // });
 
     uploadTask.on(
       'state_changed',
@@ -58,17 +46,15 @@ function Editor({
   };
 
   const updateMarker = async (imgUrl) => {
-    // console.log('UPDATE START');
-    // console.log('--------', imgUrl, textValue, curDoc, '----------');
     await updateDoc(curDoc, { imgUrl, textValue });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log('!!!!!!!!!!!!SUBMIT!!!!!!!!!');
     updateMarker(imgUrl);
     setIsEditorOpen(false);
     setIsMarkerClicked(false);
+    setIsCommentsOpen(false);
   };
 
   const handleCloseBtn = async () => {
@@ -81,7 +67,6 @@ function Editor({
     await deleteDoc(curDoc);
   };
 
-  // console.log(curDoc);
   return (
     <div className='editor-container'>
       <button className='editor-close-btn' onClick={handleCloseBtn}>

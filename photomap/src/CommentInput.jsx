@@ -4,24 +4,23 @@ import { updateDoc, arrayUnion, doc } from 'firebase/firestore';
 import { CiPaperplane } from 'react-icons/ci';
 import './CommentInput.css';
 function CommentInput({
-  commentsData,
   curMarkerDoc,
   setIsCommentSubmited,
   userId,
+  isCommentSubmited,
 }) {
   const [value, setValue] = useState('');
-  console.log(commentsData);
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  console.log(value);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isCommentSubmited) setIsCommentSubmited(false);
     await updateDoc(curMarkerDoc, {
       comments: arrayUnion({ value, userId }),
     });
     setIsCommentSubmited(true);
-    console.log('sub');
+    setValue('');
   };
 
   return (
@@ -41,7 +40,6 @@ function CommentInput({
       >
         <CiPaperplane />
       </button>
-      {/* <input type='text' value={value} onChange={handleChange} /> */}
     </form>
   );
 }

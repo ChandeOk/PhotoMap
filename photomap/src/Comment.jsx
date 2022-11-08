@@ -1,6 +1,6 @@
 import React from 'react';
 import './Comment.css';
-function Comment({ value, userId, userName }) {
+function Comment({ value, userName }) {
   return (
     <div className='comment'>
       <p className='comment-text'>{value}</p>
