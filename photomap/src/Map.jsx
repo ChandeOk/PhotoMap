@@ -44,6 +44,7 @@ function MyMap({
       alert('Please Log in');
       return;
     }
+    if (isEditorOpen) return;
     const [lat, lng] = e.latLng;
     const id = nanoid();
     setMarkers((prev) => [...prev, { lat, lng, id, userId, comments: [] }]);
