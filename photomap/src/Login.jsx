@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, getDocs, where } from 'firebase/firestore';
 import './Login.css';
-function Login({ signInWithGoogle, auth, logout, db, isLogged }) {
+function Login({ signInWithGoogle, auth, logout, db, isLogged, setUserName }) {
   const [name, setName] = useState('');
   const [user, loading, error] = useAuthState(auth);
 
@@ -13,6 +13,7 @@ function Login({ signInWithGoogle, auth, logout, db, isLogged }) {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      setUserName(data.name);
     } catch (err) {
       console.error(err);
     }
@@ -25,9 +26,12 @@ function Login({ signInWithGoogle, auth, logout, db, isLogged }) {
 
   return (
     <div className='login-container'>
-      <button className='google-login-btn' onClick={signInWithGoogle}>
-        Login
-      </button>
+      {!isLogged && (
+        <button className='google-login-btn' onClick={signInWithGoogle}>
+          Login
+        </button>
+      )}
+      <h1 className='logo'>PhotoMap</h1>
       <div className='login-user-info-container'>
         {isLogged && (
           <div className='login-user-info'>

@@ -1,0 +1,26 @@
+.comment {
+  background-color: white;
+  display: flex;
+  width: 100%;
+  min-height: 10%;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow-wrap: break-word;
+
+  /* box-shadow: 0px 1px 10px 3px rgba(34, 60, 80, 0.06); */
+  box-shadow: 8px 8px 9px -8px rgba(34, 60, 80, 0.2);
+  border: 1px solid rgba(34, 60, 80, 0.08);
+}
+.comment-text {
+  width: 72%;
+  padding: 0 2%;
+  font-size: 0.9rem;
+}
+.comment-user-name {
+  /* position: absolute; */
+  /* right: 0; */
+  width: 18%;
+  font-size: 0.7rem;
+}

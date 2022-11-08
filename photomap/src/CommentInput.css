@@ -1,0 +1,21 @@
+.comment-input {
+  /* position: absolute; */
+  /* background-color: blue; */
+  width: 100%;
+  height: 20%;
+}
+
+.comment-input-text {
+  width: 90%;
+  height: 85%;
+}
+
+.comment-submit-btn {
+  font-size: 2rem;
+  background-color: #f8f4ee;
+  color: black;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

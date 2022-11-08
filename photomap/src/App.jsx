@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { isRouteErrorResponse } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth';
+import Comments from './Comments';
 import Editor from './Editor';
 import Login from './Login';
 import MyMap from './Map';
@@ -13,7 +14,10 @@ function App(props) {
   const [markers, setMarkers] = useState([]);
   const [isLogged, setIsLogged] = useState();
   const [userId, setUserId] = useState('');
-
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [curMarkerDoc, setCurMarkerDoc] = useState();
+  const [userName, setUserName] = useState();
+  console.log(userName);
   const loadMarkersFromDB = async () => {
     const result = await props.readDB();
     setMarkers(result);
@@ -45,16 +49,30 @@ function App(props) {
         logout={props.logout}
         db={props.db}
         isLogged={isLogged}
+        setUserName={setUserName}
       />
-      <MyMap
-        markers={markers}
-        setMarkers={setMarkers}
-        addMarker={props.addMarker}
-        isLogged={isLogged}
-        userId={userId}
-        storage={props.storage}
-        db={props.db}
-      />
+      <div className='main'>
+        <MyMap
+          markers={markers}
+          setMarkers={setMarkers}
+          addMarker={props.addMarker}
+          isLogged={isLogged}
+          userId={userId}
+          storage={props.storage}
+          db={props.db}
+          setIsCommentsOpen={setIsCommentsOpen}
+          setCurMarkerDoc={setCurMarkerDoc}
+        />
+        {isCommentsOpen && (
+          <Comments
+            curMarkerDoc={curMarkerDoc}
+            db={props.db}
+            userId={userId}
+            isLogged={isLogged}
+            userName={userName}
+          />
+        )}
+      </div>
       {/* <Popup /> */}
       {/* <Editor /> */}
     </div>

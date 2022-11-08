@@ -78,6 +78,7 @@ const addMarker = async (lat, lng, id, uid) => {
       lng: lng,
       id: id,
       userId: uid,
+      comments: [],
     });
   } catch (e) {
     console.error('Error adding document: ', e);
