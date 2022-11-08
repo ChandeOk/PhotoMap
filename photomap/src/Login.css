@@ -58,3 +58,17 @@ button {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.login-help {
+  font-size: 2.4rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}

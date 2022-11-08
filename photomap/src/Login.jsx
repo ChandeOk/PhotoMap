@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, getDocs, where } from 'firebase/firestore';
+import { CiCircleQuestion } from 'react-icons/ci';
 import './Login.css';
 function Login({ signInWithGoogle, auth, logout, db, isLogged, setUserName }) {
   const [name, setName] = useState('');
@@ -46,6 +47,14 @@ function Login({ signInWithGoogle, auth, logout, db, isLogged, setUserName }) {
           </button>
         )}
       </div>
+      <a
+        className='login-help'
+        href='https://github.com/'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <CiCircleQuestion />
+      </a>
     </div>
   );
 }
